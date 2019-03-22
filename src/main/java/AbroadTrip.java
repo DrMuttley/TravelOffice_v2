@@ -2,6 +2,11 @@ public class AbroadTrip extends Trip {
 
     private int insurance;
 
+    public AbroadTrip() {
+        super();
+        this.insurance = 50;
+    }
+
     public void setInsurance(int insurance) {
         this.insurance = insurance;
     }

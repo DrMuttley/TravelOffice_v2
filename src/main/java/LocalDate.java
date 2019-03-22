@@ -4,34 +4,16 @@ public class LocalDate {
     private int mounth = 1;
     private int day = 1;
 
+    public LocalDate() {
+        this.year = 2019;
+        this.mounth = 12;
+        this.day = 1;
+    }
+
     public LocalDate(int year, int mounth, int day){
 
         this.year = year;
         this.mounth = mounth;
-        this.day = day;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public int getMounth() {
-        return mounth;
-    }
-
-    public int getDay() {
-        return day;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public void setMounth(int mounth) {
-        this.mounth = mounth;
-    }
-
-    public void setDay(int day) {
         this.day = day;
     }
 

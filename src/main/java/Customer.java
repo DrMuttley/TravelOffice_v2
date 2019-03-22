@@ -16,8 +16,21 @@ public class Customer {
         this.trip = trip;
     }
 
+
+    public Customer() {
+        this.name = "JOHN DOE";
+        this.address = new Address();
+        this.trip = new AbroadTrip();
+    }
+
     public Customer(String name) {
         this.name = name;
+    }
+
+    public Customer(String name, Address address, Trip trip) {
+        this.name = name;
+        this.address = address;
+        this.trip = trip;
     }
 
     public void setAddress(Address address) {

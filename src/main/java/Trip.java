@@ -13,7 +13,12 @@ public abstract class Trip {
         this.price = price;
     }
 
-    public Trip(){}
+    public Trip(){
+        this.start = new LocalDate();
+        this.end = new LocalDate();
+        this.destination = "FRANCE";
+        this.price = 1000;
+    }
 
     public Trip(String tripDetails){}
 

@@ -2,6 +2,11 @@ public class DomesticTrip extends Trip {
 
     private int ownArrivalDiscount;
 
+    public DomesticTrip(){
+        super();
+        this.ownArrivalDiscount = 20;
+    }
+
     public DomesticTrip(String tripDetails) {
         super(tripDetails);
     }
