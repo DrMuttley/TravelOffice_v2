@@ -20,7 +20,7 @@ public abstract class Trip {
         this.price = 1000;
     }
 
-    public Trip(String tripDetails){}
+    public Trip(String description){}
 
     public Trip(LocalDate start, LocalDate end, String destination, int price) {
         this.start = start;

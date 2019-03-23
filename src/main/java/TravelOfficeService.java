@@ -1,6 +1,7 @@
+import java.util.Map;
 import java.util.Set;
 
-public class TravelOfficceService {
+public class TravelOfficeService {
 
     private TravelOffice travelOffice = new TravelOffice();
 
@@ -24,6 +25,10 @@ public class TravelOfficceService {
         return travelOffice.getCustomersSet();
     }
 
+    public Map<String, Trip> getTripsMap(){
+        return  travelOffice.getTripsMap();
+    }
+
     public Customer findCustomerByTrip(Trip trip){
         return travelOffice.findCustomerByTrip(trip);
     }
@@ -32,11 +37,15 @@ public class TravelOfficceService {
         travelOffice.removeTrip(tripDescription);
     }
 
-    public void showAllTrips(){
-        travelOffice.showAllTrips();
+    public String showAllTrips(){
+        return travelOffice.showAllTrips();
     }
 
-    public void showAllCustomers(){
-        travelOffice.showAllCustomers();
+    public String showAllCustomers(){
+        return travelOffice.showAllCustomers();
+    }
+
+    public void assignTrip(String userName , String tripDescription) throws NoSuchCustomerException{
+        travelOffice.assignTrip(userName, tripDescription);
     }
 }

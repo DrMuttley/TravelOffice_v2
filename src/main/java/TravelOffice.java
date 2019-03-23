@@ -21,26 +21,28 @@ public class TravelOffice {
         customersSet.add(customer);
     }
 
-    public int getCustomerCount(){
-        return customersSet.size();
-    }
+    public String showAllCustomers(){
 
-    public void showAllCustomers(){
+        StringBuilder allCustomers = new StringBuilder();
+
         if(!getCustomersSet().isEmpty()) {
-            getCustomersSet().forEach(customer -> System.out.println(customer.toString()));
-            System.out.println();
+            getCustomersSet().forEach(customer -> allCustomers.append(customer.toString() + "\n"));
         }else{
-            System.out.println("There is no customers in the DB.\n");
+            allCustomers.append("There is no customers in the DB.");
         }
+        return allCustomers.toString();
     }
 
-    public void showAllTrips(){
+    public String showAllTrips(){
+
+        StringBuilder allTrips = new StringBuilder();
+
         if(!getTripsMap().isEmpty()) {
-            getTripsMap().entrySet().forEach(trip -> System.out.println(trip.getValue()));
-            System.out.println();
+            getTripsMap().entrySet().forEach(trip -> allTrips.append(trip.getValue() + "\n"));
         }else{
-            System.out.println("There is no trip in the DB.\n");
+            allTrips.append("There is no trip in the DB.");
         }
+        return allTrips.toString();
     }
 
     public void addTrip(String description, Trip trip){
@@ -85,6 +87,10 @@ public class TravelOffice {
             }
         }
         return null;
+    }
+
+    public void assignTrip(String userName, String tripDescription) throws NoSuchCustomerException{
+        findCustomerByName(userName).assignTrip(findTripByDescription(tripDescription));
     }
 
     public void removeCustomer(Customer customer) throws NoSuchCustomerException{

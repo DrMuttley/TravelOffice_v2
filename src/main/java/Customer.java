@@ -5,17 +5,16 @@ public class Customer {
     private Trip trip;
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public Trip getTrip() {
-        return trip;
+        return this.trip;
     }
 
     public void setTrip(Trip trip) {
         this.trip = trip;
     }
-
 
     public Customer() {
         this.name = "JOHN DOE";

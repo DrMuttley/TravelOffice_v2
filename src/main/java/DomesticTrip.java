@@ -7,8 +7,8 @@ public class DomesticTrip extends Trip {
         this.ownArrivalDiscount = 20;
     }
 
-    public DomesticTrip(String tripDetails) {
-        super(tripDetails);
+    public DomesticTrip(String description) {
+        super(description);
     }
 
     public DomesticTrip(LocalDate start, LocalDate end, String destination, int price) {

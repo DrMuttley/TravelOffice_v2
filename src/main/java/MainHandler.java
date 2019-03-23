@@ -3,12 +3,10 @@ import java.util.Scanner;
 
 public class MainHandler implements UserInterface {
 
-    //private TravelOffice travelOffice = new TravelOffice();
-    private TravelOfficceService travelOfficceService = new TravelOfficceService();
-
+    private TravelOfficeService travelOfficeService = new TravelOfficeService();
 
     private Scanner scan = new Scanner(System.in);
-    private boolean communiactionWithUserEnd = false;
+    private boolean communicationWithUserEnd = false;
 
     private static Logger logger = Logger.getLogger("mod12.ex01.to");
 
@@ -24,7 +22,7 @@ public class MainHandler implements UserInterface {
             Customer customer = new Customer(customerData[0] + " " + customerData[1]);
             customer.setAddress(new Address(customerData[2], customerData[3], customerData[4]));
 
-            travelOfficceService.addCustomer(customer);
+            travelOfficeService.addCustomer(customer);
 
             logger.info("New customer was added to DB.");
             showAnswerFromSystem("The customer was successfully added to DB.\n");
@@ -54,7 +52,7 @@ public class MainHandler implements UserInterface {
                             LocalDate.of(tripData[1]), tripData[2], Integer.parseInt(tripData[3]));
 
                     showAnswerFromSystem("Provide description:");
-                    travelOfficceService.addTrip(getAnswerFromUser(), domesticTrip);
+                    travelOfficeService.addTrip(getAnswerFromUser(), domesticTrip);
 
                     logger.info("New domestic trip was added to DB.");
                     showAnswerFromSystem("The trip was successfully added to DB.\n");
@@ -70,7 +68,7 @@ public class MainHandler implements UserInterface {
                             LocalDate.of(tripData[1]), tripData[2], Integer.parseInt(tripData[3]));
 
                     showAnswerFromSystem("Provide description:");
-                    travelOfficceService.addTrip(getAnswerFromUser(), abroadTrip);
+                    travelOfficeService.addTrip(getAnswerFromUser(), abroadTrip);
 
                     logger.info("New abroad trip was added to DB.");
                     showAnswerFromSystem("The trip was successfully added to DB.\n");
@@ -93,8 +91,9 @@ public class MainHandler implements UserInterface {
         String tripDescription = getAnswerFromUser();
 
         try {
-            if (travelOfficceService.findTripByDescription(tripDescription) != null) {
-                travelOfficceService.findCustomerByName(userName).assignTrip(travelOfficceService.findTripByDescription(tripDescription));
+            if (travelOfficeService.findTripByDescription(tripDescription) != null) {
+                travelOfficeService.assignTrip(userName, tripDescription);
+                //travelOfficeService.findCustomerByName(userName).assignTrip(travelOfficeService.findTripByDescription(tripDescription));
             } else {
                 showAnswerFromSystem("The trip wasn't found.\n");
             }
@@ -108,13 +107,13 @@ public class MainHandler implements UserInterface {
     @Override
     public boolean removeCustomer() {
 
-        if(!travelOfficceService.getCustomersSet().isEmpty()) {
+        if(!travelOfficeService.getCustomersSet().isEmpty()) {
 
             showAnswerFromSystem("Provide name of customer:");
 
             try {
-                Customer foundCustomer = travelOfficceService.findCustomerByName(getAnswerFromUser());
-                travelOfficceService.getCustomersSet().removeIf(customer -> customer.equals(foundCustomer));
+                Customer foundCustomer = travelOfficeService.findCustomerByName(getAnswerFromUser());
+                travelOfficeService.getCustomersSet().removeIf(customer -> customer.equals(foundCustomer));
 
                 logger.info("The customer was removed from DB.");
                 showAnswerFromSystem("The customer was removed.\n");
@@ -140,12 +139,12 @@ public class MainHandler implements UserInterface {
 
         try {
 
-            Customer customer = travelOfficceService.findCustomerByTrip(travelOfficceService.findTripByDescription(description));
+            Customer customer = travelOfficeService.findCustomerByTrip(travelOfficeService.findTripByDescription(description));
 
             if(customer != null) {
                 customer.setTrip(null);
             }
-            travelOfficceService.removeTrip(description);
+            travelOfficeService.removeTrip(description);
 
             logger.info("The trip was removed from DB.");
             showAnswerFromSystem("The trip was removed.\n");
@@ -162,12 +161,12 @@ public class MainHandler implements UserInterface {
 
     @Override
     public void showTrips() {
-        travelOfficceService.showAllTrips();
+        showAnswerFromSystem(travelOfficeService.showAllTrips());
     }
 
     @Override
     public void showCustomers() {
-        travelOfficceService.showAllCustomers();
+        showAnswerFromSystem(travelOfficeService.showAllCustomers());
     }
 
     private void showAnswerFromSystem(String answerFromSystem) {
@@ -191,8 +190,8 @@ public class MainHandler implements UserInterface {
         return scan.nextLine();
     }
 
-    public void setCommuniactionWithUserEnd(boolean communiactionWithUserEnd) {
-        this.communiactionWithUserEnd = communiactionWithUserEnd;
+    public void setCommunicationWithUserEnd(boolean communicationWithUserEnd) {
+        this.communicationWithUserEnd = communicationWithUserEnd;
     }
 
     public boolean reactForAnswerFromUser(String answerFromUser) {
@@ -227,7 +226,7 @@ public class MainHandler implements UserInterface {
                 break;
             }
             case "-E": {
-                setCommuniactionWithUserEnd(true);
+                setCommunicationWithUserEnd(true);
                 break;
             }
             default: {
@@ -235,7 +234,7 @@ public class MainHandler implements UserInterface {
                 break;
             }
         }
-        return communiactionWithUserEnd;
+        return communicationWithUserEnd;
     }
 
     private String[] splitInputData(String inputData) {
